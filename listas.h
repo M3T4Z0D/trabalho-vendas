@@ -31,7 +31,7 @@ struct venda{
 };
 
 /* FUNCOES LISTA VENDAS */
-void imprime_lista_vendidos(produtoVendido *lst);
+void imprime_lista_vendidos(venda *lst);
 
 /* FUNCOES LISTA DE PRODUTOS */
 void inserir_produto(produto *&lst, int codigo, char *desc, double preco, int estoque);
