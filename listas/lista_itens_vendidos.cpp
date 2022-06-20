@@ -1,13 +1,13 @@
-#include "listas.h"
+#include "../cabecalhos/funcoes_listas.h"
 
 void imprimir_itens_vendidos(produtoVendido *lst)
 {
     produtoVendido *p;
     for (p = lst; p != NULL; p = p->proximo)
-        printf("%d - R$  \n", p->codigo_produto, p->preco_venda);
+        printf("%d - R$ %.2lf - %d\n\n", p->codigo_produto, p->preco_venda, p->quantidade_vendida);
 }
 
-void inserir_fim(int codigo, double valor, produtoVendido *&listaProdutosVendidos)
+void inserir_produto_vendido_fim(int codigo, double valor, int quantidade, produtoVendido *&listaProdutosVendidos)
 {
     produtoVendido *novo, *p;
 
@@ -16,6 +16,7 @@ void inserir_fim(int codigo, double valor, produtoVendido *&listaProdutosVendido
     // copiando cada campo
     novo->codigo_produto = codigo;
     novo->preco_venda = valor;
+    novo->quantidade_vendida = quantidade;
 
     if (listaProdutosVendidos == NULL)
         listaProdutosVendidos = novo;
@@ -29,7 +30,7 @@ void inserir_fim(int codigo, double valor, produtoVendido *&listaProdutosVendido
     }
 }
 
-void desalocar(produtoVendido *&listaProdutosVendidos)
+void desalocar_itens_vendidos(produtoVendido *&listaProdutosVendidos)
 {
     produtoVendido *aux;
 
@@ -41,4 +42,14 @@ void desalocar(produtoVendido *&listaProdutosVendidos)
 
         free(aux);
     }
+}
+
+double calcularPrecoTotalDoCarrinho(produtoVendido *&listaProdutosVendidos)
+{
+    produtoVendido *p;
+    double valorTotal = 0;
+    for (p = listaProdutosVendidos; p != NULL; p = p->proximo)
+        valorTotal += (p->preco_venda * p->quantidade_vendida);
+
+    return valorTotal;
 }
